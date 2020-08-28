@@ -18,13 +18,9 @@ impl Clock {
     }
 
     fn normalize(hours: i32, minutes: i32) -> (i32, i32) {
-        fn divrem(n: i32, d: i32) -> (i32, i32, i32) {
-            (n / d, n % d, n.rem_euclid(d))
-        }
-
-        let (h_carry, m_neg, m) = divrem(minutes, 60);
-        let (_, _, h) = divrem(hours + h_carry + (if m_neg < 0 { -1 } else { 0 }), 24);
-        (h, m)
+        let (m_addl_hours, m_rem, m_mod) = (minutes / 60, minutes % 60, minutes.rem_euclid(60));       
+        let h = (hours + m_addl_hours + (if m_rem < 0 { -1 } else { 0 })).rem_euclid(24);
+        (h, m_mod)
     }
 }
 
