@@ -1,4 +1,5 @@
 use std::cmp::Ordering::{Less, Equal as Equals, Greater};
+use Comparison::*;
 
 #[derive(Debug, PartialEq)]
 pub enum Comparison {
@@ -9,7 +10,6 @@ pub enum Comparison {
 }
 
 pub fn sublist<T: PartialEq>(a: &[T], b: &[T]) -> Comparison {
-    use Comparison::*;
     fn contains<T: PartialEq>(larger: &[T], smaller: &[T]) -> bool {
         (0..(larger.len() - smaller.len() + 1)).any(|i| larger[i..(i+smaller.len())] == *smaller)
     }
