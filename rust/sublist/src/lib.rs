@@ -11,7 +11,7 @@ pub enum Comparison {
 
 pub fn sublist<T: PartialEq>(a: &[T], b: &[T]) -> Comparison {
     fn contains<T: PartialEq>(larger: &[T], smaller: &[T]) -> bool {
-        (0..(larger.len() - smaller.len() + 1)).any(|i| larger[i..(i+smaller.len())] == *smaller)
+        smaller.is_empty() || larger.windows(smaller.len()).any(|w| w == smaller )
     }
 
     match a.len().cmp(&b.len()) {
